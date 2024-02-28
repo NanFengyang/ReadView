@@ -6,6 +6,7 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewConfiguration
+import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.Scroller
 import org.peyilo.readview.annotation.ThreadSafe
@@ -80,7 +81,7 @@ abstract class PageContainer(context: Context, attrs: AttributeSet?): FrameLayou
         }
     }
 
-    internal val scroller by lazy { Scroller(context) }
+    internal val scroller by lazy { Scroller(context, LinearInterpolator()) }
     internal val downPoint = PointF()
     internal val upPoint = PointF()
     internal val curPoint = PointF()
@@ -236,9 +237,9 @@ abstract class PageContainer(context: Context, attrs: AttributeSet?): FrameLayou
         manager.setShadowWidth(width)
     }
 
-    override fun dispatchDraw(canvas: Canvas?) {
+    override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
-        canvas?.let { manager.dispatchDraw(canvas) }
+        manager.dispatchDraw(canvas)
     }
 
     interface OnClickRegionListener {

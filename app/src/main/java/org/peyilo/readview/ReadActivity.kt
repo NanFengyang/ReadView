@@ -22,6 +22,8 @@ class ReadActivity : AppCompatActivity() {
                 footerId = R.id.page_footer
             )
             (page.content as View).setBackgroundColor(Color.WHITE)
+            page.header!!.setBackgroundColor(Color.WHITE)
+            page.footer!!.setBackgroundColor(Color.WHITE)
         }
 
         readView.setOnClickRegionListener { xPercent, _ ->
@@ -32,7 +34,7 @@ class ReadActivity : AppCompatActivity() {
         }
         when (intent.getIntExtra("MODE", 1)) {
             1 -> {
-                readView.openBook(SfacgLoader(217202), chapIndex = 10)
+                readView.openBook(SfacgLoader(217202))
             }
         }
 

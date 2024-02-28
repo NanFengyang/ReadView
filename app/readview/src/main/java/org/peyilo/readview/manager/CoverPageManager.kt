@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Shader
+import android.util.Log
 import org.peyilo.readview.ui.PageContainer
 import org.peyilo.readview.ui.PageDirection
 
@@ -114,13 +115,20 @@ class CoverPageManager(readView: PageContainer): HorizontalPageManager(readView)
 
     override fun computeScroll() {
         if (scroller.computeScrollOffset()) {
+            // 由于Scroller默认插值器是先加速后减小，减小到最后scrollX的增值小于1，就导致scroller.currX
+            // 不会发生改变，scrollTo也就不会触发重绘。
+            // 因此，当碰见这种情形时，意味着动画就差一点点距离就完成了，但是会因为增值小于1卡在那
+            // 需要直接让其结束动画，滑动到最终位置
             scrolledView!!.scrollTo(scroller.currX, scroller.currY)
+
+            // Log.d(TAG, "computeScroll: ${scroller.currX}")
             // 滑动动画结束
             if (scroller.currX == scroller.finalX && scroller.currY == scroller.finalY) {
                 scroller.forceFinished(true)
                 isRunning = false
                 scrolledView = null
             }
+
         }
     }
 

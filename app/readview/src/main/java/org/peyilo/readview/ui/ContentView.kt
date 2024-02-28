@@ -23,10 +23,10 @@ class ContentView(context: Context, attrs: AttributeSet? = null):
         ReadBook.config.setContentDimen(w, h)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         content?.let {
-            ReadBook.provider.drawPage(content!!, canvas!!, paint)
+            ReadBook.provider.drawPage(content!!, canvas, paint)
         }
     }
 

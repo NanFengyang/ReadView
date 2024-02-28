@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
 
@@ -8,11 +8,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.peyilo.readview"
         minSdk = 23
-        targetSdk = 34
+        testOptions.targetSdk = 34
+        /*targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0"*/
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
